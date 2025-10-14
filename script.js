@@ -3,26 +3,34 @@
 // =====================
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
+    const loadingProgress = document.getElementById('loading-progress');
+    const loadingPercentage = document.getElementById('loading-percentage');
     
-    // Animation Timeline:
-    // 0s - MacBook appears
-    // 0.5s - Lid starts opening
-    // 2.5s - Lid fully open
-    // 2.8s - Screen turns on
-    // 3.2s - "Hello" text appears
-    // 3.5s - Languages start cycling
-    // 6s - Start fade out
+    let progress = 0;
+    const duration = 3000; // 3 seconds loading time
+    const interval = 30; // Update every 30ms
+    const increment = (100 / (duration / interval));
     
-    const totalDuration = 6000; // 6 seconds total
-    
-    // Fade out loading screen after animation completes
-    setTimeout(() => {
-        loadingScreen.classList.add('fade-out');
-        // Remove from DOM after transition
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-        }, 1000);
-    }, totalDuration);
+    const loadingInterval = setInterval(() => {
+        progress += increment;
+        
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(loadingInterval);
+            
+            // Fade out loading screen after completion
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                // Remove from DOM after transition
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 800);
+            }, 500);
+        }
+        
+        loadingProgress.style.width = progress + '%';
+        loadingPercentage.textContent = Math.floor(progress) + '%';
+    }, interval);
 });
 
 // =====================
