@@ -237,25 +237,17 @@ function setActiveLink() {
 window.addEventListener('scroll', setActiveLink);
 
 // =====================
-// SCROLL ANIMATIONS
+// SCROLL ANIMATIONS (AOS)
 // =====================
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('aos-animate');
-        }
-    });
-}, observerOptions);
-
-// Observe all elements with data-aos attribute
 document.addEventListener('DOMContentLoaded', () => {
-    const animatedElements = document.querySelectorAll('[data-aos]');
-    animatedElements.forEach(el => observer.observe(el));
+    // Initialize AOS (Animate On Scroll)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    }
 });
 
 // =====================
