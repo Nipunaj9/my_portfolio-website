@@ -247,6 +247,15 @@ document.addEventListener('DOMContentLoaded', () => {
             once: true,
             offset: 100
         });
+        console.log('AOS initialized successfully');
+    } else {
+        console.log('AOS not available, showing content without animations');
+        // Fallback: Show all content immediately if AOS fails
+        const hiddenElements = document.querySelectorAll('[data-aos]');
+        hiddenElements.forEach(el => {
+            el.style.opacity = '1';
+            el.style.transform = 'none';
+        });
     }
 });
 
